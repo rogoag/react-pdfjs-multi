@@ -1,0 +1,23 @@
+{
+  "name": "react-pdfjs-multi",
+  "version": "0.0.1",
+  "description": "React wrapper for pdfjs with multiple file support",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcklei/react-pdfjs-multi.git"
+  },
+  "keywords": [
+    "react",
+    "pdfjs"
+  ],
+  "author": "Marcus Klein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcklei/react-pdfjs-multi/issues"
+  },
+  "homepage": "https://github.com/marcklei/react-pdfjs-multi#readme"
+}
