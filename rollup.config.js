@@ -4,6 +4,8 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import postcssUrl from 'postcss-url';
 import typescript from 'rollup-plugin-typescript2';
+import cssnext from 'postcss-cssnext';
+import cssnano from 'cssnano';
 import pkg from './package.json';
 
 export default {
@@ -20,7 +22,11 @@ export default {
   ],
   plugins: [
     postcss({
-      plugins: [postcssUrl({ url: 'inline' })],
+      plugins: [
+        postcssUrl({ url: 'inline' }),
+        cssnext({ warnForDuplicates: false }),
+        cssnano(),
+      ],
       extract: 'dist/react-pdfjs-multi.css',
     }),
     external(),
