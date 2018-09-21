@@ -1,21 +1,24 @@
 language: node_js
 node_js:
-  - 'lts/*'
+  - '8'
+  - '10'
 env:
   global:
     - CI=true
-cache:
-  yarn: true
+cache: yarn
 git:
   depth: 5
-jobs:
-  include:
-    - stage: test
-      script:
-        - yarn test --runInBand --no-cache
-
-    - stage: publish
-      if: tag IS present AND branch = master AND type != pull_request
-      script:
-        - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-        - npm publish
+script:
+  - yarn test --runInBand --no-cache
+deploy:
+  - provider: script
+    script: echo Deploy Githubpages
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: script
+    script: echo deploy to npm
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
