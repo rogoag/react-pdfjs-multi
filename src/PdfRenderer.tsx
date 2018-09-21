@@ -1,6 +1,6 @@
 import React, { PureComponent, RefObject } from 'react';
 import { PDFDocumentProxy } from 'pdfjs-dist';
-import { PdfRendererControls } from './components';
+import PdfRendererControls from './PdfRendererControls';
 import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.css';
 
