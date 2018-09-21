@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 'lts/*'
+env:
+  global:
+    - CI=true
+cache:
+  yarn: true
+git:
+  depth: 5
+jobs:
+  include:
+    - stage: test
+      script:
+        - yarn test --runInBand --no-cache
+
+    - stage: publish
+      if: tag IS present AND branch = master AND type != pull_request
+      script:
+        - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+        - npm publish
