@@ -1,0 +1,10 @@
+.renderer-container {
+  height: 100%;
+  background-color: #404040;
+  background-image: url('assets/texture.png');
+}
+
+.renderer-target-container {
+  height: calc(100% - 32px);
+  overflow: auto;
+}
