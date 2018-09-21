@@ -1,20 +1,25 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent, RefObject } from 'react';
+import { PDFDocumentProxy } from 'pdfjs-dist';
 import { PdfRendererControls } from './components';
 import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.css';
 
 const { PDFViewer } = require('pdfjs-dist/web/pdf_viewer');
+const initialState = {
+  scale: 100,
+};
 
-export default class PdfRenderer extends PureComponent {
-  static propTypes = {
-    // pdfDoc: instanceOf(PDFDocumentProxy)
-    pdfDoc: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  };
+type State = typeof initialState;
+type Props = {
+  pdfDoc: PDFDocumentProxy;
+};
 
-  state = { scale: 100 };
+export default class PdfRenderer extends PureComponent<Props, {}> {
+  state: State = initialState;
+  container: RefObject<HTMLDivElement>;
+  pdfViewer: any;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.container = React.createRef();
     this.pdfViewer = null;
@@ -30,14 +35,14 @@ export default class PdfRenderer extends PureComponent {
     this.pdfViewer.setDocument(pdfDoc);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     const { pdfDoc } = this.props;
     if (pdfDoc !== prevProps.pdfDoc) {
       this.pdfViewer.setDocument(pdfDoc);
     }
   }
 
-  setScale = (scale) => {
+  setScale = (scale: number) => {
     this.setState(() => ({ scale }));
     this.pdfViewer.currentScaleValue = scale / 100;
   };

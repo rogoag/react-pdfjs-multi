@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './ZoomSelectBox.scss';
 
-class ZoomSelectBox extends Component {
+type Props = {
+  scale: number;
+  setScale: (scale: number) => void;
+};
+
+class ZoomSelectBox extends PureComponent<Props, {}> {
   static propTypes = {
     scale: PropTypes.number.isRequired,
     setScale: PropTypes.func.isRequired,
@@ -51,13 +56,15 @@ class ZoomSelectBox extends Component {
     },
     {
       id: 'calculated',
-      text: scale => `${scale}%`,
     },
   ];
 
   showCalculatedScale = () => {
     const { scale } = this.props;
-    return this.selectOptions.filter(option => option.value === scale).length === 0 ? scale : 0;
+    return this.selectOptions.filter(option => option.value === scale)
+      .length === 0
+      ? scale
+      : 0;
   };
 
   render() {
@@ -67,7 +74,7 @@ class ZoomSelectBox extends Component {
         <span className="dropdown-toolbar">
           <select
             value={scale}
-            onChange={(e) => {
+            onChange={e => {
               setScale(parseInt(e.target.value, 10));
             }}
           >
@@ -77,10 +84,10 @@ class ZoomSelectBox extends Component {
                   <option
                     key={`id-${scale}`}
                     value={this.showCalculatedScale()}
-                    hidden
-                    disabled="disabled"
+                    hidden={true}
+                    disabled={true}
                   >
-                    {text(scale)}
+                    {`${scale}%`}
                   </option>
                 );
               }
