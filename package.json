@@ -7,9 +7,11 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "rimraf dist && rollup -c",
+    "build": "rollup -c",
+    "prepublish": "npm run build",
     "start": "rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --env=jsdom",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -29,17 +31,22 @@
   },
   "homepage": "https://github.com/marcklei/react-pdfjs-multi#readme",
   "devDependencies": {
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.2",
     "@types/pdfjs-dist": "^0.1.2",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
     "caniuse-lite": "^1.0.30000886",
     "cssnano": "^4.1.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "jest": "^23.6.0",
     "node-sass": "^4.9.3",
     "postcss-cssnext": "^3.1.0",
     "postcss-url": "^8.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "^1.1.5",
     "rimraf": "^2.6.2",
     "rollup": "^0.66.1",
     "rollup-plugin-commonjs": "^9.1.8",
@@ -49,6 +56,7 @@
     "rollup-plugin-scss": "^0.4.0",
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^1.4.0",
+    "ts-jest": "^23.10.1",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.0.3"
@@ -60,5 +68,26 @@
   },
   "dependencies": {
     "pdfjs-dist": "^2.0.489"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "setupFiles": [
+      "raf/polyfill",
+      "<rootDir>/test/setupTest.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/test/**/?(*.)(spec|test).ts?(x)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.ts"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
   }
 }
