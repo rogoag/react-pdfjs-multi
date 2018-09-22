@@ -9,8 +9,8 @@ git config --global user.name "Travis CI"
 yarn build:example
 
 # deploy
-cd examples/simple
+cd examples/simple/build
 git init
 git add .
 git commit -m "Deploy to Github Pages"
-git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git" master:gh-pages 
+git push --quiet "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git" master:gh-pages > /dev/null 2>&1
