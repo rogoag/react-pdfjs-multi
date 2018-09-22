@@ -1,28 +1,24 @@
 language: node_js
 node_js:
   - '8'
-  - '10'
 env:
   global:
     - CI=true
+    - secure: W0DfS8KOvXmBYpca357MWBD7vAokxQZYZ+Dq+hBTsNl2TTAVr7CMTU0nAWgW6XPqLMi/0EgrlayPbK9ueU09LwMQupr18QiBAWOkxzanMjYgYF3fxYOnJbYHSaBpKFKf7R1sw4aAGGORKawFLwPkmXmOlSw0wJwKjpSpLQbKr9C0DSpxl4P6mBWm/h4tQ//ig6jluU44UGn42fyEhhsDwRkQkRuxzNFH3JYCBQsVGijNJE+Z0t68EMcvEuwSWNyrOmSJ7ng3zLstM50MP2gKgRx8yBpptcjZFwMatI/+i6BafAWKSKXjqWPrvEshXa3bwVZN4aUI+AVaRKiFMM0RCWZ+xEr7Cr8QVp3oyNJG2QXziI+bhcgmhD8Tqx1D4rUDioSG8z//58FiV8/moG4ef7UHmAvkCXaGmLCUvaI23NDDejPHdeZjKn4iwWE+/XFSHqYuO6NWyEMJNPPUFAq29NEbqaXBLxNMyBmaRYIfJntNcSUxCz5GqGONi/SMsrWahhaPKMMzv6E8QjuMc98sm+j+yIVUFg8D4PmNWhIaeFXou+WeISCsfOYCQSZ4GhBcKrjpgILd4fu+r2AAEqrm+vQf3urzINh5j07LHl3yFU05GuhCQzk2lve3vP5Krcez8iLM2vBwk8Wn6rLBI4JmG/VZO6hfhqV2g5gdWtNEDx8=
 cache: yarn
 git:
   depth: 5
-script:
-  - yarn test --runInBand --no-cache
 jobs:
   include:
-    - if: tag IS blank AND branch = master AND type != pull_request
-      script: -yarn build:example
-deploy:
-  - provider: script
-    script: echo Deploy Githubpages
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: echo deploy to npm
-    skip_cleanup: true
-    on:
-      branch: master
-      tags: true
+    - stage: test
+      script:
+        - yarn test --runInBand --no-cache
+    - stage: deploy
+      if: tag IS blank AND branch = master AND type != pull_request
+      script:
+        - bash ./deploy-examples.sh
+    - stage: publish
+      if: tag IS present AND branch = master AND type != pull_request
+      script:
+        - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+        - npm publish
