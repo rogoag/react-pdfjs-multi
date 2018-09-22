@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c",
+    "build:example": "cd examples/simple && yarn && yarn build",
     "prepublish": "npm run build",
     "start": "rollup -c -w",
     "test": "jest --env=jsdom",

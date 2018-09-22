@@ -10,6 +10,10 @@ git:
   depth: 5
 script:
   - yarn test --runInBand --no-cache
+jobs:
+  include:
+    - if: tag IS blank AND branch = master AND type != pull_request
+      script: -yarn build:example
 deploy:
   - provider: script
     script: echo Deploy Githubpages
