@@ -65,3 +65,5 @@ dist
 .DS_STORE
 
 .rpt2_cache
+
+.vscode
