@@ -13,4 +13,4 @@ cd examples/simple
 git init
 git add .
 git commit -m "Deploy to Github Pages"
-git push "https://${GITHUB_TOKEN}@$github.com/${GITHUB_REPO}.git" gh-pages 
+git push "https://${GITHUB_TOKEN}@$github.com/${GITHUB_REPO}.git" master:gh-pages 
