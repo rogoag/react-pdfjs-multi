@@ -1,6 +1,4 @@
 language: node_js
-node_js:
-  - '8'
 env:
   global:
     - CI=true
@@ -12,9 +10,13 @@ git:
 jobs:
   include:
     - stage: test
+      node_js:
+        - '8'
+        - '10'
       script:
         - yarn test --runInBand --no-cache
     - stage: deploy ghpages
+      node_js: '8'
       if: tag IS blank AND branch = master AND type != pull_request
       script:
         - bash ./deploy-examples.sh
