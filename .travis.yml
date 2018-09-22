@@ -21,7 +21,7 @@ jobs:
       script:
         - bash ./deploy-examples.sh
     - stage: npm release
-      if: branch = master AND tag IS present
+      if: tag IS present
       node_js: '8'
       script: echo "Deploying to npm ..."
       deploy:
