@@ -24,7 +24,7 @@ class App extends PureComponent {
 
     if (!pdfDoc) return false;
 
-    return <PdfRenderer pdfDoc={pdfDoc} controls={false} />;
+    return <PdfRenderer pdfDoc={pdfDoc} />;
   }
 }
 
