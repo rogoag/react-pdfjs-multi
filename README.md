@@ -39,6 +39,6 @@ Props:
 | autoZoom |          | true    | {boolean}          | enables/disables autoZoom on component mount and window resize |
 | controls |          | true    | {boolean}          | enables/disables controls to e.g. change renderer zoom         |
 
-[1]: https://github.com/Semantic-Org/Semantic-UI-React/blob/master/.github/CONTRIBUTING.md
+[1]: https://mozilla.github.io/pdf.js/
 [2]: https://marcklei.github.io/react-pdfjs-multi/
 [3]: https://github.com/marcklei/react-pdfjs-multi/blob/master/examples/simple/src/App.js
