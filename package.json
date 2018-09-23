@@ -67,6 +67,7 @@
     "react-dom": "16.0.0"
   },
   "dependencies": {
+    "custom-event-polyfill": "^1.0.6",
     "pdfjs-dist": "^2.0.489"
   },
   "jest": {

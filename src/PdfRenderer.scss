@@ -8,3 +8,9 @@
   height: calc(100% - 32px);
   overflow: auto;
 }
+
+.pdfViewer {
+  &.hidden {
+    visibility: hidden;
+  }
+}

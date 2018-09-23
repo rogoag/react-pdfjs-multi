@@ -3,13 +3,20 @@ import ZoomSelectBox from './ZoomSelectBox';
 import './PdfRendererControls.scss';
 
 type Props = {
+  autoZoom?: boolean;
   onZoomIn: () => void;
   onZoomOut: () => void;
   scale: number;
   setScale: (scale: number) => void;
 };
 
-const PdfControls: SFC<Props> = ({ onZoomIn, onZoomOut, scale, setScale }) => (
+const PdfControls: SFC<Props> = ({
+  autoZoom,
+  onZoomIn,
+  onZoomOut,
+  scale,
+  setScale,
+}) => (
   <div className="renderer-controls">
     <div>
       <div className="button-group">
@@ -29,7 +36,7 @@ const PdfControls: SFC<Props> = ({ onZoomIn, onZoomOut, scale, setScale }) => (
           <span className="zoom-in-label">Vergrößern</span>
         </button>
       </div>
-      <ZoomSelectBox scale={scale} setScale={setScale} />
+      <ZoomSelectBox autoZoom={autoZoom} scale={scale} setScale={setScale} />
     </div>
   </div>
 );

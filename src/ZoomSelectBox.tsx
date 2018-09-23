@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './lib/resizeAutoZoomEvent';
 import './ZoomSelectBox.scss';
 
 type Props = {
+  autoZoom?: boolean;
   scale: number;
   setScale: (scale: number) => void;
 };
@@ -13,7 +15,11 @@ class ZoomSelectBox extends PureComponent<Props, {}> {
     setScale: PropTypes.func.isRequired,
   };
 
-  selectOptions = [
+  createSelectOptions = () => [
+    {
+      id: 'automated',
+      text: 'Automatischer Zoom',
+    },
     {
       id: '50-percent',
       text: '50%',
@@ -61,14 +67,14 @@ class ZoomSelectBox extends PureComponent<Props, {}> {
 
   showCalculatedScale = () => {
     const { scale } = this.props;
-    return this.selectOptions.filter(option => option.value === scale)
-      .length === 0
+    return this.createSelectOptions().filter(option => option.value === scale)
+      .length === 0 && scale % 10 === 0
       ? scale
       : 0;
   };
 
   render() {
-    const { scale, setScale } = this.props;
+    const { autoZoom, scale, setScale } = this.props;
     return (
       <div className="dropdown-toolbar-container">
         <span className="dropdown-toolbar">
@@ -78,24 +84,34 @@ class ZoomSelectBox extends PureComponent<Props, {}> {
               setScale(parseInt(e.target.value, 10));
             }}
           >
-            {this.selectOptions.map(({ id, text, value }) => {
-              if (id === 'calculated') {
-                return (
-                  <option
-                    key={`id-${scale}`}
-                    value={this.showCalculatedScale()}
-                    hidden={true}
-                    disabled={true}
-                  >
-                    {`${scale}%`}
-                  </option>
-                );
+            {this.createSelectOptions().map(({ id, text, value }) => {
+              switch (id) {
+                case 'calculated':
+                  return (
+                    <option
+                      key={`${id}-${scale}`}
+                      value={this.showCalculatedScale()}
+                      hidden={true}
+                      disabled={true}
+                    >
+                      {`${scale}%`}
+                    </option>
+                  );
+                case 'automated':
+                  return (
+                    autoZoom && (
+                      <option key={`${id}-${scale}`} value={-1}>
+                        {text}
+                      </option>
+                    )
+                  );
+                default:
+                  return (
+                    <option key={id} value={value}>
+                      {text}
+                    </option>
+                  );
               }
-              return (
-                <option key={id} value={value}>
-                  {text}
-                </option>
-              );
             })}
           </select>
         </span>
