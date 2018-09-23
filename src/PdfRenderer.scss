@@ -7,6 +7,10 @@
 .renderer-target-container {
   height: calc(100% - 32px);
   overflow: auto;
+
+  &.no-controls {
+    height: 100%;
+  }
 }
 
 .pdfViewer {

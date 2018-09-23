@@ -20,6 +20,7 @@ type Props = {
 } & Partial<DefaultProps>;
 type DefaultProps = {
   autoZoom?: boolean;
+  controls?: boolean;
 };
 export default class PdfRenderer extends PureComponent<Props, {}> {
   state: State = initialState;
@@ -28,6 +29,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
 
   static defaultProps: DefaultProps = {
     autoZoom: true,
+    controls: true,
   };
 
   constructor(props: Props) {
@@ -136,18 +138,25 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
 
   render() {
     const { isLoading, scale } = this.state;
-    const { autoZoom } = this.props;
+    const { autoZoom, controls } = this.props;
 
     return (
       <div className="renderer-container">
-        <PdfRendererControls
-          autoZoom={autoZoom}
-          scale={scale}
-          setScale={this.setScale}
-          onZoomIn={this.zoomIn}
-          onZoomOut={this.zoomOut}
-        />
-        <div ref={this.container} className="renderer-target-container">
+        {controls && (
+          <PdfRendererControls
+            autoZoom={autoZoom}
+            scale={scale}
+            setScale={this.setScale}
+            onZoomIn={this.zoomIn}
+            onZoomOut={this.zoomOut}
+          />
+        )}
+        <div
+          ref={this.container}
+          className={`renderer-target-container ${
+            !controls ? 'no-controls' : ''
+          } `}
+        >
           <div
             id="viewer"
             className={`pdfViewer ${isLoading ? 'hidden' : ''}`}
