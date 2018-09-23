@@ -20,7 +20,7 @@ For a preview of the current development visit [github pages][2].
 
 or
 
-`npm i react-pdfjs-mulit`
+`npm i react-pdfjs-multi`
 
 ### PdfMultiViewer
 
