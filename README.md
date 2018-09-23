@@ -31,6 +31,7 @@ tbd.
 If you like to implement your own custom multi renderer logic you can use the PdfRenderer component. For an implementation example see [Example][3].
 
 Props:
+
 | Name | Required | Default | Type | Description |
 |----------|----------|---------|--------------------|----------------------------------------------------------------|
 | pdfDoc | true | | {PDFDocumentProxy} | A proxy of the pdf document to display |
