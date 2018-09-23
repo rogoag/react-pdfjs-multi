@@ -1,7 +1,6 @@
 # react-pdfjs-multi
 
 [![Build Status](https://travis-ci.org/marcklei/react-pdfjs-multi.svg?branch=master)](https://travis-ci.org/marcklei/react-pdfjs-multi)
-
 [![David Dependencies](https://david-dm.org/marcklei/react-pdfjs-multi.svg)](https://david-dm.org/marcklei/react-pdfjs-multi)
 
 React wrapper for pdfjs with multiple file support.
