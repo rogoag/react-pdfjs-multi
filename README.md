@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/marcklei/react-pdfjs-multi.svg?branch=master)](https://travis-ci.org/marcklei/react-pdfjs-multi)
 
+[![David Dependencies](https://david-dm.org/marcklei/react-pdfjs-multi.svg)](https://david-dm.org/marcklei/react-pdfjs-multi)
+
 React wrapper for pdfjs with multiple file support.
 
 This library uses [pdf.js][1].
@@ -32,11 +34,11 @@ If you like to implement your own custom multi renderer logic you can use the Pd
 
 Props:
 
-| Name | Required | Default | Type | Description |
-|----------|----------|---------|--------------------|----------------------------------------------------------------|
-| pdfDoc | true | | {PDFDocumentProxy} | A proxy of the pdf document to display |
-| autoZoom | | true | {boolean} | enables/disables autoZoom on component mount and window resize |
-| controls | | true | {boolean} | enables/disables controls to e.g. change renderer zoom |
+| Name     | Required | Default | Type               | Description                                                    |
+| -------- | -------- | ------- | ------------------ | -------------------------------------------------------------- |
+| pdfDoc   | true     |         | {PDFDocumentProxy} | A proxy of the pdf document to display                         |
+| autoZoom |          | true    | {boolean}          | enables/disables autoZoom on component mount and window resize |
+| controls |          | true    | {boolean}          | enables/disables controls to e.g. change renderer zoom         |
 
 [1]: https://github.com/Semantic-Org/Semantic-UI-React/blob/master/.github/CONTRIBUTING.md
 [2]: https://marcklei.github.io/react-pdfjs-multi/
