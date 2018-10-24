@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { PdfRenderer, PdfjsLib } from 'react-pdfjs-multi';
-import './App.css';
 import 'react-pdfjs-multi/dist/react-pdfjs-multi.css';
 
 PdfjsLib.GlobalWorkerOptions.workerSrc =
   '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js';
 
-class App extends PureComponent {
+class RendererExample extends PureComponent {
   state = {
     pdfDoc: null,
   };
@@ -28,4 +27,4 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+export default RendererExample;
