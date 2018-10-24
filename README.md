@@ -76,4 +76,4 @@ Props:
 
 [1]: https://mozilla.github.io/pdf.js/
 [2]: https://marcklei.github.io/react-pdfjs-multi/
-[3]: https://github.com/marcklei/react-pdfjs-multi/blob/master/examples/simple/src/App.js
+[3]: https://github.com/marcklei/react-pdfjs-multi/blob/master/examples/src/RendererExample.js
