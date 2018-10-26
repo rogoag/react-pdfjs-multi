@@ -19,7 +19,7 @@ body {
 
 .examples-nav li {
   height: 50px;
-  padding: 0 30px;
+  padding: 0 20px;
   display: inline-flex;
   align-items: center;
   border-right: 1px solid #fff;
