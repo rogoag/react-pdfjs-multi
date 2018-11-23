@@ -33,7 +33,7 @@ type Props = {
 } & Partial<DefaultProps>;
 
 type DefaultProps = {
-  activeIndex?: number;
+  activeIndex?: number | string;
   autoZoom?: boolean;
   controls?: boolean;
   i18nData?: I18nDataRenderer;
