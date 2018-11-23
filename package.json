@@ -1,6 +1,6 @@
 {
   "name": "react-pdfjs-multi",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "React wrapper for pdfjs with multiple file support",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -21,7 +21,9 @@
   },
   "keywords": [
     "react",
-    "pdfjs"
+    "pdfjs",
+    "pdf",
+    "pdf-viewer"
   ],
   "files": [
     "dist"
