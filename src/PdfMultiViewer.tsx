@@ -20,7 +20,7 @@ type PdfDefinition = {
 
 type PdfSource = string | PdfDefinition;
 
-export type PdfFile = {
+type PdfFile = {
   index?: number;
   title?: string;
   zoom?: number;

@@ -1,7 +1,14 @@
-import PdfRenderer from './PdfRenderer';
-import PdfMultiViewer from './PdfMultiViewer';
+import PdfRenderer, { RendererDocumentPosition } from './PdfRenderer';
+import PdfMultiViewer, { I18nData } from './PdfMultiViewer';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 
 const PdfjsLib = require('pdfjs-dist/build/pdf');
 
-export { PdfMultiViewer, PdfRenderer, PdfjsLib, PDFDocumentProxy };
+export {
+  I18nData,
+  PdfMultiViewer,
+  PdfRenderer,
+  PdfjsLib,
+  PDFDocumentProxy,
+  RendererDocumentPosition,
+};
