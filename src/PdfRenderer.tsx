@@ -24,7 +24,7 @@ export type RendererDocumentPosition = {
 };
 
 type PdfChangeHook = (
-  documentIndex: number | string,
+  documentIndex: string,
   position: RendererDocumentPosition,
 ) => void;
 
@@ -33,7 +33,7 @@ type Props = {
 } & Partial<DefaultProps>;
 
 type DefaultProps = {
-  activeIndex?: number | string;
+  activeIndex?: string;
   autoZoom?: boolean;
   controls?: boolean;
   i18nData?: I18nDataRenderer;
@@ -48,7 +48,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   pdfViewer: any;
 
   static defaultProps: DefaultProps = {
-    activeIndex: 0,
+    activeIndex: '0',
     autoZoom: true,
     controls: true,
     i18nData: defaultI18n,
@@ -86,7 +86,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
 
     if (pdfDoc !== prevProps.pdfDoc) {
       if (typeof pdfChangeHook === 'function') {
-        pdfChangeHook(prevProps.activeIndex as number, {
+        pdfChangeHook(String(prevProps.activeIndex), {
           zoom: this.state.scale,
           scrollTop: this.container.current && this.container.current.scrollTop,
           scrollLeft:

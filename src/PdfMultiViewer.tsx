@@ -8,7 +8,7 @@ const PdfjsLib = require('pdfjs-dist/build/pdf');
 
 const initialState = {
   files: [],
-  activeIndex: 0,
+  activeIndex: '0',
   listVisible: true,
   overlayMode: false,
 };
@@ -32,7 +32,7 @@ type PdfFile = {
 
 type State = {
   files: PdfFile[];
-  activeIndex: number;
+  activeIndex: string;
   listVisible: boolean;
   overlayMode: boolean;
 };
@@ -48,7 +48,7 @@ type Props = {
 type DefaultProps = {
   autoZoom?: boolean;
   controls?: boolean;
-  startIndex?: number;
+  startIndex?: string;
   i18nData?: I18nData;
 };
 
@@ -60,7 +60,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
   static defaultProps: DefaultProps = {
     autoZoom: true,
     controls: true,
-    startIndex: 0,
+    startIndex: '0',
     i18nData: {
       pages: 'Pages',
     },
@@ -76,7 +76,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
 
     this.viewerContainer = React.createRef();
 
-    this.state.activeIndex = props.startIndex as number;
+    this.state.activeIndex = String(props.startIndex);
 
     this.state.files = this.props.pdfs.map(
       (pdf): PdfFile => {
@@ -109,7 +109,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
     });
   }
 
-  changePdf = (activeIndex: number, file: PdfFile) => () => {
+  changePdf = (activeIndex: string, file: PdfFile) => () => {
     const { overlayMode, listVisible } = this.state;
     if (!file.pdfProxy) return;
 
@@ -125,10 +125,10 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
     return this.state.files.map((file, index) => (
       <li
         className={`pdf-viewer-list-item${file.pdfProxy ? ' loaded' : ''}${
-          activeIndex === index ? ' active' : ''
+          activeIndex === String(index) ? ' active' : ''
         }`}
         key={file.source}
-        onClick={this.changePdf(index, file)}
+        onClick={this.changePdf(String(index), file)}
       >
         {file.title || file.source}
         {file.pdfProxy && (
@@ -169,10 +169,10 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
 
   onResizeEvent = () => this.setOverlayMode(this.getViewerContainerWidth());
 
-  rememberPosition = (index: number, postion: RendererDocumentPosition) =>
+  rememberPosition = (index: string, postion: RendererDocumentPosition) =>
     this.setState((state: State) => ({
       files: state.files.map((pdfFile, pdfIndex) => {
-        if (pdfIndex !== index) return pdfFile;
+        if (pdfIndex !== Number(index)) return pdfFile;
         return {
           ...pdfFile,
           ...postion,
@@ -195,7 +195,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
 
   render() {
     const { activeIndex, files, listVisible, overlayMode } = this.state;
-    const pdfToShow = files[activeIndex];
+    const pdfToShow = files[Number(activeIndex)];
     const { autoZoom, controls, i18nData } = this.props;
 
     return (

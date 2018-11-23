@@ -58,9 +58,9 @@ describe('<PdfMultiViewer />', () => {
       <PdfMultiViewer pdfs={['test.pdf', 'test2.pdf']} />,
     );
     const file = wrapper.state().files[1];
-    wrapper.instance().changePdf(1, file);
+    wrapper.instance().changePdf('1', file);
 
-    expect(wrapper.state().activeIndex).toEqual(0);
+    expect(wrapper.state().activeIndex).toEqual('0');
   });
 
   it('should change activeIndex when pdfProxy is present', async () => {
@@ -70,9 +70,9 @@ describe('<PdfMultiViewer />', () => {
 
     await getDocumentPromise;
     const file = wrapper.state().files[1];
-    wrapper.instance().changePdf(1, file)();
+    wrapper.instance().changePdf('1', file)();
 
-    expect(wrapper.state().activeIndex).toEqual(1);
+    expect(wrapper.state().activeIndex).toEqual('1');
   });
 
   it('should call toggleList when listVisible and overlayMode', async () => {
@@ -85,7 +85,7 @@ describe('<PdfMultiViewer />', () => {
     await getDocumentPromise;
     const file = wrapper.state().files[1];
     wrapper.instance().setOverlayMode(330);
-    wrapper.instance().changePdf(1, file)();
+    wrapper.instance().changePdf('1', file)();
 
     expect(spy).toHaveBeenCalled();
   });
@@ -102,7 +102,7 @@ describe('<PdfMultiViewer />', () => {
     const file = wrapper.state().files[1];
     // wrapper.setState({ overlayMode: false, listVisible: true });
     wrapper.instance().setOverlayMode(1200);
-    wrapper.instance().changePdf(1, file)();
+    wrapper.instance().changePdf('1', file)();
 
     expect(spy).not.toHaveBeenCalled();
   });
