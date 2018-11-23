@@ -2,8 +2,6 @@ language: node_js
 env:
   global:
     - CI=true
-    - GITHUB_REPO: 'marcklei/react-pdfjs-multi'
-    - secure: W0DfS8KOvXmBYpca357MWBD7vAokxQZYZ+Dq+hBTsNl2TTAVr7CMTU0nAWgW6XPqLMi/0EgrlayPbK9ueU09LwMQupr18QiBAWOkxzanMjYgYF3fxYOnJbYHSaBpKFKf7R1sw4aAGGORKawFLwPkmXmOlSw0wJwKjpSpLQbKr9C0DSpxl4P6mBWm/h4tQ//ig6jluU44UGn42fyEhhsDwRkQkRuxzNFH3JYCBQsVGijNJE+Z0t68EMcvEuwSWNyrOmSJ7ng3zLstM50MP2gKgRx8yBpptcjZFwMatI/+i6BafAWKSKXjqWPrvEshXa3bwVZN4aUI+AVaRKiFMM0RCWZ+xEr7Cr8QVp3oyNJG2QXziI+bhcgmhD8Tqx1D4rUDioSG8z//58FiV8/moG4ef7UHmAvkCXaGmLCUvaI23NDDejPHdeZjKn4iwWE+/XFSHqYuO6NWyEMJNPPUFAq29NEbqaXBLxNMyBmaRYIfJntNcSUxCz5GqGONi/SMsrWahhaPKMMzv6E8QjuMc98sm+j+yIVUFg8D4PmNWhIaeFXou+WeISCsfOYCQSZ4GhBcKrjpgILd4fu+r2AAEqrm+vQf3urzINh5j07LHl3yFU05GuhCQzk2lve3vP5Krcez8iLM2vBwk8Wn6rLBI4JmG/VZO6hfhqV2g5gdWtNEDx8=
 cache: yarn
 git:
   depth: 5
