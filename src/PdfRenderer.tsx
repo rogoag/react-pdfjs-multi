@@ -24,7 +24,7 @@ export type RendererDocumentPosition = {
 };
 
 type PdfChangeHook = (
-  documentIndex: number,
+  documentIndex: number | string,
   position: RendererDocumentPosition,
 ) => void;
 
