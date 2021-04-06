@@ -9,7 +9,7 @@ const PdfjsLib = require('pdfjs-dist/build/pdf');
 const initialState = {
   files: [],
   activeIndex: '0',
-  listVisible: true,
+  listVisible: false,
   overlayMode: false,
 };
 

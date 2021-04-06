@@ -5,6 +5,8 @@ import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.scss';
 import { I18nDataRenderer, defaultI18n, I18nContext } from './I18nContext';
 import { getPDFFileNameFromURL } from './lib/filenameHelper';
+import printJS from 'print-js';
+
 
 const roundToNearest = (numToRound: number, numToRoundTo: number) =>
   Math.round(numToRound / numToRoundTo) * numToRoundTo;
@@ -57,6 +59,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   container: RefObject<HTMLDivElement>;
   pdfViewer: any;
   downloadManager: any;
+  printSrc: string;
 
   static defaultProps: DefaultProps = {
     activeIndex: '0',
@@ -77,6 +80,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     this.downloadManager = new DownloadManager({
       disableCreateObjectURL: false,
     });
+    this.printSrc = '';
   }
 
   async componentDidMount() {
@@ -253,7 +257,15 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   };
 
   onPrint = async () => {
-    
+    const pdfDoc = this.props.pdfDoc as any;
+    let { url } = pdfDoc._transport._params;
+    try {
+      const data = await this.props.pdfDoc.getData();
+      const blob = new Blob([data], { type: 'application/pdf' });
+      url = URL.createObjectURL(blob);
+    } finally {
+      printJS({printable: [url], type: 'pdf'});
+    }
   }
 
   render() {
