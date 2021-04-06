@@ -8,6 +8,7 @@ export type I18nDataRenderer = {
   rotateLeft?: string;
   rotateRight?: string;
   download?: string;
+  printLabel?: string;
 };
 
 export const defaultI18n: I18nDataRenderer = {
@@ -18,6 +19,7 @@ export const defaultI18n: I18nDataRenderer = {
   rotateLeft: 'Rotate left',
   rotateRight: 'Rotate right',
   download: 'Download',
+  printLabel: 'Print',
 };
 
 export const I18nContext = React.createContext(defaultI18n);

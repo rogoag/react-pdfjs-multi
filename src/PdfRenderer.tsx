@@ -50,6 +50,7 @@ type DefaultProps = {
   rotation?: number;
   scrollTop?: number;
   scrollLeft?: number;
+  downloadName?: string;
 };
 export default class PdfRenderer extends PureComponent<Props, {}> {
   state: State = initialState;
@@ -236,7 +237,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     const pdfDoc = this.props.pdfDoc as any;
     const { url } = pdfDoc._transport._params;
 
-    const filename = getPDFFileNameFromURL(url);
+    const filename = this.props.downloadName || getPDFFileNameFromURL(url);
 
     const downloadByUrl = () => {
       this.downloadManager.downloadUrl(url, filename);
@@ -250,6 +251,10 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
       downloadByUrl();
     }
   };
+
+  onPrint = async () => {
+    
+  }
 
   render() {
     const { isLoading, scale } = this.state;
@@ -265,6 +270,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
               scale={scale}
               setScale={this.setScale}
               onDownload={this.download}
+              onPrint={this.onPrint}
               onZoomIn={this.zoomIn}
               onZoomOut={this.zoomOut}
               onRotateRight={this.rotateRight}

@@ -24,6 +24,7 @@ type PdfFile = {
   index?: number;
   title?: string;
   zoom?: number;
+  downloadName?: string;
   rotation?: number;
   scrollTop?: number;
   scrollLeft?: number;
@@ -51,6 +52,7 @@ type DefaultProps = {
   controls?: boolean;
   startIndex?: string;
   i18nData?: I18nData;
+  downloadName?: string;
 };
 
 export default class PdfMultiViewer extends PureComponent<Props, {}> {
@@ -197,7 +199,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
   render() {
     const { activeIndex, files, listVisible, overlayMode } = this.state;
     const pdfToShow = files[Number(activeIndex)];
-    const { autoZoom, controls, i18nData } = this.props;
+    const { autoZoom, controls, i18nData, downloadName } = this.props;
 
     return (
       <div className="pdf-multi-viewer" ref={this.viewerContainer}>
@@ -222,6 +224,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
               activeIndex={activeIndex}
               autoZoom={autoZoom}
               controls={controls}
+              downloadName={downloadName}
               pdfDoc={pdfToShow.pdfProxy}
               i18nData={i18nData}
               pdfChangeHook={this.rememberPosition}

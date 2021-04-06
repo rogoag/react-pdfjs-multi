@@ -7,6 +7,7 @@ type Props = {
   autoZoom?: boolean;
   downloadBtn?: boolean;
   onDownload: () => void;
+  onPrint: () => void;
   onZoomIn: () => void;
   onZoomOut: () => void;
   onRotateRight: () => void;
@@ -19,6 +20,7 @@ const PdfControls: SFC<Props> = ({
   autoZoom,
   downloadBtn,
   onDownload,
+  onPrint,
   onZoomIn,
   onZoomOut,
   onRotateRight,
@@ -51,7 +53,7 @@ const PdfControls: SFC<Props> = ({
       </I18nContext.Consumer>
       <ZoomSelectBox autoZoom={autoZoom} scale={scale} setScale={setScale} />
       <I18nContext.Consumer>
-        {({ scaleDown, scaleUp, download }) => (
+        {({ scaleDown, scaleUp, download, printLabel }) => (
           <Fragment>
             <div className="button-group">
               <button
@@ -81,6 +83,15 @@ const PdfControls: SFC<Props> = ({
                 </button>
               </div>
             )}
+            <div className="button-group">
+              <button
+                className="renderer-controls-button"
+                type="button"
+                onClick={onPrint}
+              >
+                <span className="print-label">{printLabel}</span>
+              </button>
+            </div>
           </Fragment>
         )}
       </I18nContext.Consumer>
