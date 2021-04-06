@@ -5,7 +5,6 @@ import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.scss';
 import { I18nDataRenderer, defaultI18n, I18nContext } from './I18nContext';
 import { getPDFFileNameFromURL } from './lib/filenameHelper';
-import printJS from 'print-js';
 
 
 const roundToNearest = (numToRound: number, numToRoundTo: number) =>
@@ -264,7 +263,16 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
       const blob = new Blob([data], { type: 'application/pdf' });
       url = URL.createObjectURL(blob);
     } finally {
-      printJS({printable: [url], type: 'pdf'});
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      iframe.onload = function() {
+        setTimeout(function() {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+        }, 1);
+      };
+      iframe.src = url;
     }
   }
 
