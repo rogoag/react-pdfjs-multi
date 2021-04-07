@@ -5,6 +5,7 @@ import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.scss';
 import { I18nDataRenderer, defaultI18n, I18nContext } from './I18nContext';
 import { getPDFFileNameFromURL } from './lib/filenameHelper';
+import printJS from 'print-js'
 
 
 const roundToNearest = (numToRound: number, numToRoundTo: number) =>
@@ -259,20 +260,13 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     const pdfDoc = this.props.pdfDoc as any;
     let { url } = pdfDoc._transport._params;
     try {
-      const data = await this.props.pdfDoc.getData();
-      const blob = new Blob([data], { type: 'application/pdf' });
-      url = URL.createObjectURL(blob);
+     const data = await this.props.pdfDoc.getData();
+     const blob = new Blob([data], { type: 'application/pdf' });
+     url = (window.URL || window.webkitURL || window || {}).createObjectURL(blob);
+    } catch(err) {
+      console.error('Problem creating blob or forming object url. Error: ', err);
     } finally {
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      iframe.onload = function() {
-        setTimeout(function() {
-          iframe.contentWindow?.focus();
-          iframe.contentWindow?.print();
-        }, 1);
-      };
-      iframe.src = url;
+      printJS({printable: url, type: 'pdf'});
     }
   }
 
