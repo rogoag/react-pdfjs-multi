@@ -9,6 +9,53 @@
   .pdf-multi-viewer-option-bar {
     padding: 4px 2px 4px 10px;
 
+    .pdf-viewer-close-button {
+      position: absolute;
+      right: 10px;
+      min-width: 16px;
+      padding: 2px 6px 0;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      color: hsla(0, 0%, 100%, 0.8);
+      font-size: 12px;
+      line-height: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: pointer;
+      transition-property: background-color, border-color, box-shadow;
+      transition-duration: 150ms;
+      transition-timing-function: ease;
+      background: none;
+      width: 32px;
+      height: 25px;
+
+      .close-label {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+
+        &:before {
+          position: absolute;
+          display: inline-block;
+          top: 4px;
+          left: 7px;
+
+          content: url('assets/toolbarButton-close.png');
+
+          @media screen and (-webkit-min-device-pixel-ratio: 2),
+            screen and (min-resolution: 2dppx) {
+            content: url('assets/toolbarButton-close@2x.png');
+            transform: scale(0.5);
+            top: -5px;
+            left: -1px;
+          }
+        }
+      }
+    }
+
     .viewer-controls-button {
       position: relative;
       min-width: 16px;

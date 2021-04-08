@@ -53,6 +53,7 @@ type DefaultProps = {
   startIndex?: string;
   i18nData?: I18nData;
   downloadName?: string;
+  onClose: () => void;
 };
 
 export default class PdfMultiViewer extends PureComponent<Props, {}> {
@@ -67,6 +68,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
     i18nData: {
       pages: 'Pages',
     },
+    onClose: () => {}
   };
 
   constructor(props: Props) {
@@ -209,6 +211,12 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
             onClick={this.toggleList}
           >
             <span className="toggle-list-label">Toggle list</span>
+          </button>
+          <button
+            className={"pdf-viewer-close-button"}
+            onClick={this.props.onClose}
+          >
+            <span className="close-label" />
           </button>
         </div>
         <ul
