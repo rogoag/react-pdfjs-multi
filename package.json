@@ -36,22 +36,21 @@
   "homepage": "https://github.com/marcklei/react-pdfjs-multi#readme",
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
-    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^26.0.4",
     "@types/pdfjs-dist": "^2.1.2",
-    "@types/react": "^16.4.14",
-    "@types/react-dom": "^16.0.7",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "caniuse-lite": "^1.0.30000886",
     "coveralls": "^3.0.2",
     "cssnano": "^4.1.0",
     "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
     "jest": "^26.1.0",
     "node-sass": "^4.9.3",
     "postcss-cssnext": "^3.1.0",
     "postcss-url": "^8.0.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rimraf": "^3.0.0",
     "rollup": "^2.21.0",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -67,8 +66,8 @@
     "typescript": "^3.0.3"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "dependencies": {
     "custom-event-polyfill": "^1.0.6",
