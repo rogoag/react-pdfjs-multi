@@ -5,7 +5,8 @@ import 'pdfjs-dist/web/pdf_viewer.css';
 import './PdfRenderer.scss';
 import { I18nDataRenderer, defaultI18n, I18nContext } from './I18nContext';
 import { getPDFFileNameFromURL } from './lib/filenameHelper';
-import printJS from 'print-js'
+
+const ipp = require('ipp');
 
 
 const roundToNearest = (numToRound: number, numToRoundTo: number) =>
@@ -263,10 +264,22 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
      const data = await this.props.pdfDoc.getData();
      const blob = new Blob([data], { type: 'application/pdf' });
      url = (window.URL || window.webkitURL || window || {}).createObjectURL(blob);
+     
     } catch(err) {
       console.error('Problem creating blob or forming object url. Error: ', err);
     } finally {
-      printJS({printable: url, type: 'pdf'});
+      const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
+      const msg = {
+        'operation-attributes-tag': {
+          'document-format': 'application/pdf',
+        },
+        data: url
+      };
+
+      printer.execute('Print-Job', msg, (err: any, res: any) => {
+        if (err) { console.error(err); }
+        console.log(res);
+      });
     }
   }
 
