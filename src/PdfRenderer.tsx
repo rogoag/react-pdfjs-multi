@@ -260,7 +260,9 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   onPrint = async () => {
     try {
      const data = await this.props.pdfDoc.getData();
-     const buffer = Buffer.from(data,'binary')
+     const blob = new Blob([data], { type: 'application/pdf' });
+     const arrbuffer = await blob.arrayBuffer();
+     const buffer = Buffer.from(arrbuffer)
      const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
      const msg = {
        'operation-attributes-tag': {
