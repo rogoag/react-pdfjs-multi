@@ -263,7 +263,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
      const blob = new Blob([data], { type: 'application/pdf' });
      const arrbuffer = await blob.arrayBuffer();
      const buffer = Buffer.from(arrbuffer)
-     const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
+     const printer = ipp.Printer('ipp://10.8.0.42/printers/pj722');
      const msg = {
        'operation-attributes-tag': {
          'document-format': 'application/pdf',
