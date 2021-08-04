@@ -258,28 +258,24 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   };
 
   onPrint = async () => {
-    const pdfDoc = this.props.pdfDoc as any;
-    let { url } = pdfDoc._transport._params;
     try {
      const data = await this.props.pdfDoc.getData();
      const blob = new Blob([data], { type: 'application/pdf' });
-     url = (window.URL || window.webkitURL || window || {}).createObjectURL(blob);
-     
-    } catch(err) {
-      console.error('Problem creating blob or forming object url. Error: ', err);
-    } finally {
-      const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
-      const msg = {
-        'operation-attributes-tag': {
-          'document-format': 'application/pdf',
-        },
-        data: url
-      };
+     const buffer = await blob.arrayBuffer();
+     const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
+     const msg = {
+       'operation-attributes-tag': {
+         'document-format': 'application/pdf',
+       },
+       data: buffer
+     };
 
-      printer.execute('Print-Job', msg, (err: any, res: any) => {
-        if (err) { console.error(err); }
-        console.log(res);
-      });
+     printer.execute('Print-Job', msg, (err: any, res: any) => {
+       if (err) { console.error(err); }
+       console.log(res);
+     });
+    } catch(err) {
+      console.error('Problem executing print job. Error: ', err);
     }
   }
 
