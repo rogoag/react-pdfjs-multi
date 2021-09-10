@@ -54,6 +54,8 @@ type DefaultProps = {
   scrollTop?: number;
   scrollLeft?: number;
   downloadName?: string;
+  successCallback: Function;
+  failureCallback: Function;
 };
 export default class PdfRenderer extends PureComponent<Props, {}> {
   state: State = initialState;
@@ -72,6 +74,8 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     rotation: 0,
     scrollTop: 0,
     scrollLeft: 0,
+    successCallback: () => {},
+    failureCallback: () => {}
   };
 
   constructor(props: Props) {
@@ -263,7 +267,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
      const blob = new Blob([data], { type: 'application/pdf' });
      const arrbuffer = await blob.arrayBuffer();
      const buffer = Buffer.from(arrbuffer)
-     const printer = ipp.Printer('ipp://local.rogoag.com/printers/pj722');
+     const printer = ipp.Printer('ipps://local.rogoag.com/printers/pj722');
      const msg = {
        'operation-attributes-tag': {
          'document-format': 'application/pdf',
@@ -272,7 +276,17 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
      };
 
      printer.execute('Print-Job', msg, (err: any, res: any) => {
-       if (err) { console.error(err); }
+       if (err) { 
+         console.error(err); 
+         if(this.props.failureCallback) {
+          this.props.failureCallback();
+         }
+        } else {
+          if(this.props.successCallback) {
+            this.props.successCallback();
+          }
+        }
+      
        console.log(res);
      });
     } catch(err) {

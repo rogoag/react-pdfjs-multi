@@ -54,6 +54,8 @@ type DefaultProps = {
   i18nData?: I18nData;
   downloadName?: string;
   onClose: () => void;
+  onSuccess: Function;
+  onFailure: Function;
 };
 
 export default class PdfMultiViewer extends PureComponent<Props, {}> {
@@ -68,7 +70,9 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
     i18nData: {
       pages: 'Pages',
     },
-    onClose: () => {}
+    onClose: () => {},
+    onSuccess: () => {},
+    onFailure: () => {}
   };
 
   constructor(props: Props) {
@@ -240,6 +244,8 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
               rotation={pdfToShow.rotation}
               scrollTop={pdfToShow.scrollTop}
               scrollLeft={pdfToShow.scrollLeft}
+              successCallback={this.props.onSuccess}
+              failureCallback={this.props.onFailure}
             />
           )}
         </div>
