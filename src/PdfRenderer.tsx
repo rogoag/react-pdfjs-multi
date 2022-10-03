@@ -54,6 +54,7 @@ type DefaultProps = {
   scrollTop?: number;
   scrollLeft?: number;
   downloadName?: string;
+  printURL?: string;
   successCallback: Function;
   failureCallback: Function;
 };
@@ -74,6 +75,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     rotation: 0,
     scrollTop: 0,
     scrollLeft: 0,
+    printURL: '',
     successCallback: () => {},
     failureCallback: () => {}
   };
@@ -264,10 +266,11 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
   onPrint = async () => {
     try {
      const data = await this.props.pdfDoc.getData();
+     const printURL = await this.props.printURL;
      const blob = new Blob([data], { type: 'application/pdf' });
      const arrbuffer = await blob.arrayBuffer();
      const buffer = Buffer.from(arrbuffer)
-     const printer = ipp.Printer('ipps://local.rogoag.com/printers/pj722');
+     const printer = ipp.Printer(printURL);
      const msg = {
        'operation-attributes-tag': {
          'document-format': 'application/pdf',

@@ -54,6 +54,7 @@ type DefaultProps = {
   i18nData?: I18nData;
   downloadName?: string;
   onClose: () => void;
+  printURL: string;
   onSuccess: Function;
   onFailure: Function;
 };
@@ -71,6 +72,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
       pages: 'Pages',
     },
     onClose: () => {},
+    printURL: '',
     onSuccess: () => {},
     onFailure: () => {}
   };
@@ -205,7 +207,7 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
   render() {
     const { activeIndex, files, listVisible, overlayMode } = this.state;
     const pdfToShow = files[Number(activeIndex)];
-    const { autoZoom, controls, i18nData, downloadName } = this.props;
+    const { autoZoom, controls, i18nData, downloadName, printURL, onSuccess, onFailure } = this.props;
 
     return (
       <div className="pdf-multi-viewer" ref={this.viewerContainer}>
@@ -244,8 +246,9 @@ export default class PdfMultiViewer extends PureComponent<Props, {}> {
               rotation={pdfToShow.rotation}
               scrollTop={pdfToShow.scrollTop}
               scrollLeft={pdfToShow.scrollLeft}
-              successCallback={this.props.onSuccess}
-              failureCallback={this.props.onFailure}
+              printURL={printURL}
+              successCallback={onSuccess}
+              failureCallback={onFailure}
             />
           )}
         </div>
