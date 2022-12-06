@@ -269,7 +269,7 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
      const printURL = await this.props.printURL;
      const blob = new Blob([data], { type: 'application/pdf' });
      const arrbuffer = await blob.arrayBuffer();
-     const buffer = Buffer.from(arrbuffer)
+     const buffer = Buffer.from(arrbuffer);
      const printer = ipp.Printer(printURL);
      const msg = {
        'operation-attributes-tag': {
