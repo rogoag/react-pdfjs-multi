@@ -1,6 +1,6 @@
 {
   "name": "react-pdfjs-multi",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "React wrapper for pdfjs with multiple file support",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -9,7 +9,6 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "build:example": "cd examples && yarn && yarn build",
-    "prepare": "npm run build",
     "start": "rollup -c -w",
     "test": "jest --env=jsdom",
     "test:watch": "npm run test -- --watch",

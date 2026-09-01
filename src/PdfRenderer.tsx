@@ -76,8 +76,8 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     scrollTop: 0,
     scrollLeft: 0,
     printURL: '',
-    successCallback: () => {},
-    failureCallback: () => {}
+    successCallback: () => { },
+    failureCallback: () => { }
   };
 
   constructor(props: Props) {
@@ -263,36 +263,78 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
     }
   };
 
-  onPrint = async () => {
-    try {
-     const data = await this.props.pdfDoc.getData();
-     const printURL = await this.props.printURL;
-     const blob = new Blob([data], { type: 'application/pdf' });
-     const arrbuffer = await blob.arrayBuffer();
-     const buffer = Buffer.from(arrbuffer);
-     const printer = ipp.Printer(printURL);
-     const msg = {
-       'operation-attributes-tag': {
-         'document-format': 'application/pdf',
-       },
-       data: buffer
-     };
+  doIPPPrint = async (printURL: string, blob: Blob) => {
+    const arrbuffer = await blob.arrayBuffer();
+    const buffer = Buffer.from(arrbuffer);
+    const printer = ipp.Printer(printURL);
+    const msg = {
+      'operation-attributes-tag': {
+        'document-format': 'application/pdf',
+      },
+      data: buffer
+    };
 
-     printer.execute('Print-Job', msg, (err: any, res: any) => {
-       if (err) { 
-         console.error(err); 
-         if(this.props.failureCallback) {
+    printer.execute('Print-Job', msg, (err: any, res: any) => {
+      if (err) {
+        console.error(err);
+        if (this.props.failureCallback) {
           this.props.failureCallback();
-         }
-        } else {
-          if(this.props.successCallback) {
+        }
+      } else {
+        if (this.props.successCallback) {
+          this.props.successCallback();
+        }
+      }
+
+      console.log(res);
+    });
+  }
+
+  doHTTPPrint = async (printURL: string, blob: Blob) => {
+    // curl -X 'POST' \
+    //   'http://localhost:8000/printer/cups-pdf2' \
+    //   -H 'accept: application/json' \
+    //   -H 'Content-Type: multipart/form-data' \
+    //   -F 'pdf=@test.pdf;type=application/pdf'
+    const formData = new FormData();
+    formData.append('pdf', blob, 'test.pdf');
+    fetch(printURL, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          if (this.props.successCallback) {
             this.props.successCallback();
           }
+        } else {
+          if (this.props.failureCallback) {
+            this.props.failureCallback();
+          }
         }
-      
-       console.log(res);
-     });
-    } catch(err) {
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        if (this.props.failureCallback) {
+          this.props.failureCallback();
+        }
+      });
+    }
+
+  onPrint = async () => {
+    try {
+      const data = await this.props.pdfDoc.getData();
+      const printURL = await this.props.printURL;
+      if (!printURL) {
+        throw new Error('No print URL provided');
+      }
+      const blob = new Blob([data], { type: 'application/pdf' });
+      if (printURL.startsWith('ipp')) {
+        this.doIPPPrint(printURL, blob)
+      } else {
+        this.doHTTPPrint(printURL, blob);
+      }
+    } catch (err) {
       console.error('Problem executing print job. Error: ', err);
     }
   }
@@ -321,9 +363,8 @@ export default class PdfRenderer extends PureComponent<Props, {}> {
         )}
         <div
           ref={this.container}
-          className={`renderer-target-container ${
-            !controls ? 'no-controls' : ''
-          } `}
+          className={`renderer-target-container ${!controls ? 'no-controls' : ''
+            } `}
         >
           <div
             id="viewer"
